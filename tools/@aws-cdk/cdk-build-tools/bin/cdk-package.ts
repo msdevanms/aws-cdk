@@ -4,7 +4,7 @@ import * as yarnCling from '@aws-cdk/yarn-cling';
 import * as fs from 'fs-extra';
 import * as yargs from 'yargs';
 import { shell } from '../lib/os';
-import { CDKPackageOptions, cdkPackageOptions, isJsii, isPrivate } from '../lib/package-info';
+import { cdkPackageOptions, isJsii, isPrivate } from '../lib/package-info';
 import { Timers } from '../lib/timer';
 
 const timers = new Timers();
@@ -90,16 +90,6 @@ async function main() {
     const commands = options.post.join(' && ');
     await shell([commands], { timers });
   }
-}
-
-async function runPre(options: CDKPackageOptions): Promise<string> {
-  if (options.pre ) {
-    const commands = options.pre.join(' && ');
-    await shell([commands], { timers });
-  }
-}
-async function runPost(options: CDKPackageOptions): Promise<string> {
-
 }
 
 main().then(() => {
